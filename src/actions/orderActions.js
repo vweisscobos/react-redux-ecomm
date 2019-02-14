@@ -14,7 +14,7 @@ export function createOrderSuccess(order) {
 }
 
 export function updateOrderSuccess(order) {
-  return { type: types.UPDATE_ORDER_SUCCESS, order }
+  return { type: types.UPDATE_ORDER_SUCCESS, order };
 }
 
 export function loadOrders() {

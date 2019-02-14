@@ -6,9 +6,13 @@ import * as serviceWorker from './serviceWorker';
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 import { loadOrders } from "./actions/orderActions";
+import { loadClients } from "./actions/clientActions";
+import {loadProducts} from "./actions/productActions";
 
 const store = configureStore();
 store.dispatch(loadOrders());
+store.dispatch(loadClients());
+store.dispatch(loadProducts());
 
 ReactDOM.render(
   <Provider store={store}>

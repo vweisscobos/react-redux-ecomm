@@ -70,6 +70,14 @@ class ProductsApi {
       }, delay)
     })
   }
+
+  static getAllProducts() {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(products)
+      }, delay)
+    })
+  }
 }
 
 export default ProductsApi;

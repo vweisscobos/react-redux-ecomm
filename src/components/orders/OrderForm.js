@@ -2,26 +2,34 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TextInput from "../commom/TextInput";
 import SelectInput from "../commom/SelectInput";
-import ListInput from "../commom/ListInput";
-import AutoCompleteInput from "../commom/AutoCompleteInput";
+import OrderAutoCompleteInput from "./OrderAutoCompleteInput";
 
-const OrderForm = ({ order, allStatus, onChange, onSave, errors, products, onTermChange, term }) => {
+const OrderForm = ({ order, allStatus, onChange, onSave, errors }) => {
 
   return (
     <form>
       <span>{order.id}</span>
 
-      <AutoCompleteInput
-        term={term}
-        list={products}
-        onTermChange={onTermChange}
-        onAdd={() => console.log("a")} />
+      <OrderAutoCompleteInput
+        onProductClick={prod => {
+          const products = [...order.products];
+          products.push(prod);
 
-      <ListInput
-        list={order.products}
-        name={'products'}
-        onChange={onChange}
+          onChange({ target: {
+            name: 'products',
+            value: products
+          }})
+        }}
       />
+
+      <ul>
+        <h1>Produtos</h1>
+        {
+          order.products && order.products.map((prod, index) => {
+            return <li key={index}>{prod}</li>
+          })
+        }
+      </ul>
 
       <TextInput
         label={'Cliente'}
@@ -35,7 +43,11 @@ const OrderForm = ({ order, allStatus, onChange, onSave, errors, products, onTer
         name={'status'}
         onChange={onChange}
         value={order.status}
-        options={allStatus}
+        options={[
+          { text: 'Em Produção', value: 'em producao' },
+          { text: 'Produzido', value: 'produzido' },
+          { text: 'Finalizado', value: 'finalizado' }
+        ]}
         error={errors.status}
         defaultOption={'Selecione um status'} />
 

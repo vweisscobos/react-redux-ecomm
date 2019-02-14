@@ -4,8 +4,8 @@ import HomePage from './components/HomePage';
 import OrdersPage from './components/orders/OrdersPage';
 import CostumersPage from './components/costumers/CostumersPage';
 import './App.css';
-import AddOrderPage from "./components/orders/AddOrderPage";
 import ManageOrderPage from "./components/orders/ManageOrderPage";
+import ProductsPage from './components/products/ProductsPage';
 
 class App extends Component {
   render() {
@@ -16,14 +16,16 @@ class App extends Component {
             <NavLink to={"/inicio"}>Início</NavLink>
             <NavLink to={"/pedidos"}>Pedidos</NavLink>
             <NavLink to={"/clientes"}>Clientes</NavLink>
+            <NavLink to={"/produtos"}>Produtos</NavLink>
           </nav>
           <Switch>
             <Route exact path={"/"} component={HomePage} />
             <Route path={"/inicio"} component={HomePage} />
             <Route path={"/pedidos"} component={OrdersPage} />
-            <Route path={"/novopedido"} component={AddOrderPage} />
+            <Route path={"/novopedido"} component={ManageOrderPage} />
             <Route path={"/pedido/:id"} component={ManageOrderPage}/>
             <Route path={"/clientes"} component={CostumersPage} />
+            <Route path={"/produtos"} component={ProductsPage} />
           </Switch>
         </div>
       </Router>

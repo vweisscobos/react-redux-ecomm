@@ -14,9 +14,9 @@ const SelectInput = ({ name, label, onChange, options, value, defaultOption, err
         >
           <option value={''}>{ defaultOption }</option>
           {
-            options.map(option => {
+            options.map((option, index) => {
               return <option
-                key={option.value}
+                key={index}
                 value={option.value}
               >
                   {option.text}

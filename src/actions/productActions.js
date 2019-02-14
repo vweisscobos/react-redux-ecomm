@@ -5,7 +5,7 @@ export function loadProductsSuccess(products) {
   return { type: types.LOAD_PRODUCTS_SUCCESS, products };
 }
 
-export function loadProducts(term) {
+export function getProducts(term) {
   return function(dispatch, getState) {
     return ProductsApi.filterProducts(term).then(products => {
       dispatch(loadProductsSuccess(products));
@@ -14,3 +14,14 @@ export function loadProducts(term) {
     });
   }
 }
+
+export function loadProducts() {
+  return function(dispatch, getState) {
+    return ProductsApi.getAllProducts().then(products => {
+      dispatch(loadProductsSuccess(products))
+    }).catch(error => {
+      throw(error);
+    })
+  }
+}
+

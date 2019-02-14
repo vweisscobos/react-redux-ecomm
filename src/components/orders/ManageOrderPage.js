@@ -23,7 +23,6 @@ class ManageOrderPage extends React.Component {
 
     this.updateOrderState = this.updateOrderState.bind(this);
     this.saveOrder = this.saveOrder.bind(this);
-    this.searchProduct = this.searchProduct.bind(this);
   }
 
   componentDidMount() {
@@ -34,15 +33,6 @@ class ManageOrderPage extends React.Component {
     if (this.props.order.id !== nextProps.order.id) {
       this.setState({ order: Object.assign({}, nextProps.order) })
     }
-  }
-
-  searchProduct(evt) {
-    this.setState({
-      term: evt.target.value
-    }, () => {
-      this.props.actions.loadProducts(this.state.term)
-        .then(() => console.log('coisa'));
-    });
   }
 
   updateOrderState(evt) {
@@ -82,9 +72,6 @@ class ManageOrderPage extends React.Component {
           errors={this.state.errors}
           onChange={this.updateOrderState}
           onSave={this.saveOrder}
-          term={this.state.term}
-          products={this.props.products}
-          onTermChange={this.searchProduct}
           allStatus={[
             'Solicitado',
             'Produzindo',
@@ -98,7 +85,8 @@ class ManageOrderPage extends React.Component {
 }
 
 ManageOrderPage.propTypes = {
-  //  proptypes
+  actions: PropTypes.object.isRequired,
+  order: PropTypes.object.isRequired
 };
 
 function getOrderById(orders, id) {
@@ -111,27 +99,16 @@ function mapStateToProps(state, ownProps) {
   const orderId = parseInt(ownProps.match.params.id);
 
   let order = {
-    id: 0,
     products: [],
     client: '',
     status: ''
   };
 
-  let products = [];
-
   if (orderId && state.orders.length > 0) {
     order = getOrderById(state.orders, orderId);
   }
-
-  if (state.products.length > 0) {
-    products = state.products.map(p => {
-      return Object.assign({ text: p.title }, p);
-    })
-  }
-
   return {
-    order: order,
-    products: products
+    order: order
   }
 }
 
